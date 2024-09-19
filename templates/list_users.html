@@ -1,0 +1,70 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <h1>Check Existing Users</h1>
+    <form method="POST" action="/list_mongo_users">
+        <div class="form-group">
+            <label for="mongo_server">Select MongoDB Server:</label>
+            <select id="mongo_server" name="server" required>
+                {% for server in mongo_servers %}
+                    <option value="{{ loop.index0 }}">{{ server['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">List Users</button>
+    </form>
+
+    {% if users %}
+        <h2>Users:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr class="user-row" data-user-id="user-{{ loop.index }}">
+                        <td>{{ user['user'] }}</td>
+                    </tr>
+                    <tr id="user-{{ loop.index }}" class="roles-row" style="display: none;">
+                        <td colspan="1">
+                            <table class="roles-table">
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Database</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for role in user.get('roles', []) %}
+                                        <tr>
+                                            <td>{{ role['role'] }}</td>
+                                            <td>{{ role['db'] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+
+    <script>
+        document.querySelectorAll('.user-row').forEach(function(row) {
+            row.addEventListener('click', function() {
+                var userId = this.getAttribute('data-user-id');
+                var rolesRow = document.getElementById(userId);
+                if (rolesRow.style.display === 'none') {
+                    rolesRow.style.display = 'table-row';
+                } else {
+                    rolesRow.style.display = 'none';
+                }
+            });
+        });
+    </script>
+{% endblock %}

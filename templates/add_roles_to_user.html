@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <h1>Add Roles to User</h1>
+    <form method="POST" action="/manage_mongo">
+        <div class="form-group">
+            <label for="mongo_server">Select MongoDB Server:</label>
+            <select id="mongo_server" name="server">
+                {% for server in mongo_servers %}
+                    <option value="{{ loop.index0 }}">{{ server['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="roles">Roles (comma-separated):</label>
+            <input type="text" id="roles" name="roles" required>
+        </div>
+        <button type="submit" name="action" value="add_role">Add Roles</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        #sidebar {
+            width: 200px;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border-right: 1px solid #ddd;
+        }
+        #sidebar h2 {
+            margin-top: 0;
+        }
+        #sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        #sidebar a:hover {
+            background-color: #e9ecef;
+        }
+        #sidebar .submenu {
+            display: none;
+            margin-top: 10px;
+            padding-left: 10px;
+        }
+        #sidebar .submenu a {
+            background-color: #f8f9fa;
+            padding-left: 20px;
+        }
+        #sidebar .submenu a:hover {
+            background-color: #e2e6ea;
+        }
+        #content {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input, select, button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            word-wrap: break-word;
+        }
+
+        .roles-row {
+            background-color: #f9f9f9;
+        }
+
+        .roles-table {
+            width: 100%;
+            border: none;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .roles-table th, .roles-table td {
+            border: none;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .roles-table th {
+            background-color: #e9ecef;
+        }
+        .alert {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2>Menu</h2>
+        <a href="#" id="mongodb-menu">MongoDB Management</a>
+        <div class="submenu" id="mongodb-submenu">
+            <a href="/list_mongo_users">Check Existing Users</a>
+            <a href="/mongodb_management">Manage MongoDB Users</a>
+            <a href="/add_roles_to_user">Add Roles to User</a>
+        </div>
+        <!-- Future menu items can be added here -->
+    </div>
+    <div id="content">
+        <!-- Content will be dynamically loaded here -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        document.getElementById('mongodb-menu').addEventListener('click', function(event) {
+            event.preventDefault();
+            var submenu = document.getElementById('mongodb-submenu');
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

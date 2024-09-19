@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <h1>Add MongoDB User</h1>
+    <!-- Форма для добавления пользователя -->
+    <form method="POST" action="/add_mongo_user">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+           <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+      </div>
+     <button type="submit">Add User</button>
+    </form>
+
+<!-- Форма для удаления пользователя -->
+    <form method="POST" action="/remove_mongo_user">
+     <div class="form-group">
+            <label for="username_remove">Username:</label>
+         <input type="text" id="username_remove" name="username_remove" required>
+        </div>
+        <button type="submit">Remove User</button>
+    </form>
+
+
+    {% if success_message %}
+        <div class="alert">
+            {{ success_message }}
+        </div>
+    {% endif %}
+{% endblock %}

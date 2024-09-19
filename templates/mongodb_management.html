@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <h1>MongoDB Management</h1>
+    
+    <h2>Manage MongoDB Users</h2>
+    <form method="POST" action="/manage_mongo">
+        <div class="form-group">
+            <label for="mongo_server">Select MongoDB Server:</label>
+            <select id="mongo_server" name="server">
+                {% for server in mongo_servers %}
+                    <option value="{{ loop.index0 }}">{{ server['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <button type="submit" name="action" value="add">Add User</button>
+        <button type="submit" name="action" value="remove">Remove User</button>
+    </form>
+{% endblock %}

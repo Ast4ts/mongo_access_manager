@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        form {
+            margin: 0 auto;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MongoDB Management</h1>
+        
+        <h2>Manage MongoDB Users</h2>
+        <form method="POST" action="/manage_mongo">
+            <label for="mongo_server">Select MongoDB Server:</label>
+            <select id="mongo_server" name="server">
+                {% for server in mongo_servers %}
+                    <option value="{{ loop.index0 }}">{{ server['name'] }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <br>
+            <button type="submit" name="action" value="add">Add User</button>
+            <button type="submit" name="action" value="remove">Remove User</button>
+        </form>
+
+        <h3>Add Roles to User</h3>
+        <form method="POST" action="/manage_mongo">
+            <label for="mongo_server">Select MongoDB Server:</label>
+            <select id="mongo_server" name="server">
+                {% for server in mongo_servers %}
+                    <option value="{{ loop.index0 }}">{{ server['name'] }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="roles">Roles (comma-separated):</label>
+            <input type="text" id="roles" name="roles" required>
+            <br>
+            <button type="submit" name="action" value="add_role">Add Roles</button>
+        </form>
+
+        <h3>Check Existing Users</h3>
+        <form method="POST" action="/list_mongo_users">
+            <label for="mongo_server">Select MongoDB Server:</label>
+            <select id="mongo_server" name="server">
+                {% for server in mongo_servers %}
+                    <option value="{{ loop.index0 }}">{{ server['name'] }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit">List Users</button>
+        </form>
+    </div>
+</body>
+</html>
